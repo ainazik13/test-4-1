@@ -1,64 +1,74 @@
 //Задача 1
-const regExp = /Регулярные выражения/
-
-const containsOnlyDigits = (str) => {
-    return /^\d+$/.test(str)
+const extractNumbers=(str)=> {
+    return str
+        .split('')
+        .filter(char=> !isNaN(char)&&char !=='')
+    Math(Number)
 }
 
-console.log(containsOnlyDigits("12345")); // Выведет true
-console.log(containsOnlyDigits("12a45")); // Выведет false
-
+console.log(extractNumbers("a1fg5hj6"))
 
 //Задача 2
- function startTimer() {
-  let seconds = 1
-
-  setInterval(() => {
-    console.log("Прошла секунда", "//", seconds)
-    seconds++
-  }, 1000)
+const Fibonachi=(n=0,next=1)=>{
+    if (n>144) return
+    console.log(n)
+    setTimeout(()=>Fibonachi(next,n+next),1000)
 }
-
-startTimer();
+Fibonachi()
 
 
 //Задача 3
-const count = () => {
-    let i = 1
-    const interval = setInterval(() => {
-        console.log(i)
-        if (i === 10) {
-            clearInterval(interval)
-        }
-        i++
-    }, 1000)
-}
 
-count();
+const fetchTitles=async ()=>{
+    try {
+        const res=await fetch('https://fakestoreapi.com/products')
+        const data=await res.json()
+        data.forEach(item=>console.log(item.title))
+    }catch (error){
+        console.log('Error')
+    }
+}
+fetchTitles()
+
 
 //Задача 4
-const box = document.querySelector('#box')
-    const button = document.querySelector('#toggleBtn')
-
-    button.onclick=() => {
-      box.classList.toggle('colored')
+document.querySelector('#buttons').onclick=(event)=>{
+    if (event.target.tagName==="BUTTON"){
+        document.body.style.backgroundColor=event.target.textContent
     }
+}
 
 //Задача 5
-const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'test.json', true);
+  let box = document.querySelector('#box');
+  let btn = document.querySelector('#toggleBtn');
 
-    xhr.onload = function () {
-      if (xhr.status === 200) {
-        const data = JSON.parse(xhr.responseText);
-        console.log(data);
-      } else {
-        console.error('error:', xhr.status);
-      }
-    };
+  btn.onclick = () => {
+    if (box.style.display === 'none') {
+      box.style.display = 'block';
+      btn.innerText = 'Скрыть';
+    } else {
+      box.style.display = 'none';
+      btn.innerText = 'Показать';
+    }
+  }
 
-    xhr.onerror = function () {
-      console.error('error');
-    };
+  //Задача 6
+    let i = 0;
+  const counter = document.querySelector('#counter')
 
-    xhr.send();
+  const interval = setInterval(() => {
+    counter.innerText =i
+    i++
+    if (i > 100) clearInterval(interval)
+  }, 1)
+
+  //Задача 7
+document.querySelector('#getBtn').onclick = async () => {
+    try {
+      const response = await fetch('data.json');
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      console.error('Ошибка:', error);
+    }
+  };
